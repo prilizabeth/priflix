@@ -1,0 +1,19 @@
+{
+  "name": "priflix",
+  "version": "1.0.0",
+  "description": "Repositorio de práctica de consumo API REST con Javascript",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prilizabeth/priflix.git"
+  },
+  "author": "Priscila <p.alvgonz@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/prilizabeth/priflix/issues"
+  },
+  "homepage": "https://github.com/prilizabeth/priflix#readme"
+}
