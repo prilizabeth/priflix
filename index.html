@@ -4,12 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Priflix</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <link rel="stylesheet" href="./styles/style.css">
 </head>
 <body>
-    <h1>Priflix</h1>
+    <nav class="navbar sticky-top">
+        <div class="container-fluid mx-3">
+          <a class="navbar-brand fs-3 fw-semibold">Priflix</a>
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-light" type="submit">Buscar</button>
+          </form>
+        </div>
+    </nav>
+    <div class="hero">
+        <img src="./posters-creativos-cine-1550154932.jpg" class="img-fluid" alt="...">
+    </div>
 
+<!-- Seccion Peliculas en tendencia -->
+    <section id="trendingPreview" class="container my-3 trendingPreview-container">
+        <div class="row my-3 trendingPreview-header">
+            <h3 class="col-1 trendingPreview-title">Tendencias</h3>
+            <button class="col-1 btn btn-outline-dark trendingPreview-btn">Ver más</button>
+        </div>
+        <div class="row my-3 trendingPreview-movieList">
+            <!--
+            <div class="col movie-container">
+                <img src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg" class="rounded movie-img" alt="">
+            </div>
+            -->
+        </div>
+    </section>
+
+    <section id="categoriesPreview" class="container categoriesPreview-container">
+        <h3 class="row my-3 categoriesPreview-title">Categorías</h3>
+        <div class="row my-3 categoriesPreview-list">
+            <!--
+            <div class="col category-container">
+                <h4 id="id28" class="category-title">Romance</h4>
+            </div>
+            -->
+        </div>
+    </section>
+
+    <section id="genericList" class="container genericList-container inactive">
+        <div class="row">
+            <div class="col movie-container">
+                <img src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg" class="rounded movie-img" alt="">
+            </div>
+            <div class="col movie-container">
+                <img src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg" class="rounded movie-img" alt="">
+            </div>
+            <div class="col movie-container">
+                <img src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg" class="rounded movie-img" alt="">
+            </div>
+        </div>
+    </section>
+
+    <section id="movieDetail" class="container movieDetail-container inactive">
+        <h2 class="row movieDetail-title">Deadpool</h2>
+        <span class="row movieDetail-score">7.6</span>
+        <p class="row movieDetail-description">
+            Wisecracking mercenary Deadpool battles the evil and powerful Cable and other bad guys to save a boy's life.
+        </p>
+        <div class="row categories-list">
+            <div class="col category-container">
+                <h4 id="id28" class="category-title">Romance</h4>
+            </div>
+            <div class="col category-container">
+                <h4 id="id16" class="category-title">Drama</h4>
+            </div>
+            <div class="col category-container">
+                <h4 id="id14" class="category-title">Acción</h4>
+            </div>
+        </div>
+        <div class="row relatedMovies-container">
+            <h3 class="col relatedMovies-title">Películas similares</h3>
+            <div class="row relatedMovies-scrollContainer">
+                <div class="col movie-container">
+                    <img src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg" class="rounded movie-img" alt="">
+                </div>
+                <div class="col movie-container">
+                    <img src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg" class="rounded movie-img" alt="">
+                </div>
+                <div class="col movie-container">
+                    <img src="https://image.tmdb.org/t/p/w300/adOzdWS35KAo21r9R4BuFCkLer6.jpg" class="rounded movie-img" alt="">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-center fw-semibold">Send help</footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <script src="./src/secret.js"></script>
     <script src="./src/main.js"></script>
+    <script src="./src/navigation.js"></script>
 </body>
 </html>

@@ -1,3 +1,58 @@
-h1 {
-    color: purple;
+:root {
+    --main-color: #D12A2A;
+    --secondary-color: #747496;
+    --third-color: #A7A6DD;
+    --clear-color: #EFEDFF;
+    --dark-color: #2F4858;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.inactive {
+    display: none;
+}
+
+.navbar {
+    background-color: var(--third-color);
+}
+
+.navbar a {
+    color: var(--clear-color);
+    cursor: pointer;
+}
+
+.trendingPreview-header {
+    justify-content: space-between;
+    color: var(--dark-color);
+}
+.trendingPreview-btn {
+    color: var(--dark-color);
+}
+.trendingPreview-movieList {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    height: 241px;
+    padding-left: 24px;
+    padding-bottom: 16px;
+}
+.movie-container .movie-img {
+    height: 225px;
+    width: 150px;
+}
+.relatedMovies-scrollContainer {
+    position: absolute;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    width: calc(100vw - 24px);
+    padding-bottom: 16px;
+}
+
+footer {
+    background-color: var(--secondary-color);
+    color: var(--clear-color);
 }
