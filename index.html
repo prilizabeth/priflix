@@ -11,9 +11,9 @@
     <nav class="navbar sticky-top">
         <div class="container-fluid mx-3">
           <a class="navbar-brand fs-3 fw-semibold">Priflix</a>
-          <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-light" type="submit">Buscar</button>
+          <form id="form-search" class="d-flex" role="search">
+            <input id="form-search-input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button id="form-search-btn" class="btn btn-outline-light" type="submit">Buscar</button>
           </form>
         </div>
     </nav>
@@ -36,6 +36,7 @@
         </div>
     </section>
 
+<!-- Seccion Categorias de peliculas -->
     <section id="categoriesPreview" class="container categoriesPreview-container">
         <h3 class="row my-3 categoriesPreview-title">Categorías</h3>
         <div class="row my-3 categoriesPreview-list">
@@ -99,6 +100,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <script src="./src/secret.js"></script>
+    <script src="./src/nodes.js"></script>
     <script src="./src/main.js"></script>
     <script src="./src/navigation.js"></script>
 </body>

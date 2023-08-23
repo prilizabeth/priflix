@@ -15,8 +15,9 @@ async function getTrendingMoviesPreview() {
     const {data} = await api('trending/movie/day'); // no necesitamos hacer json porque axios ya lo hace por defecto
     const movies = data.results;
 
+    trendingMoviesPreviewList.innerHTML = "";
+
     movies.forEach(movie => {
-        const trendingPreviewMoviesContainer = document.querySelector('#trendingPreview .trendingPreview-movieList');
         const movieContainer = document.createElement('div');
         const movieImg = document.createElement('img');
 
@@ -26,7 +27,7 @@ async function getTrendingMoviesPreview() {
         movieImg.setAttribute('src', 'https://image.tmdb.org/t/p/w300' + movie.poster_path);
 
         movieContainer.appendChild(movieImg);
-        trendingPreviewMoviesContainer.appendChild(movieContainer);
+        trendingMoviesPreviewList.appendChild(movieContainer);
     });
 }
 
@@ -35,8 +36,9 @@ async function getCategoriesPreview() {
     const {data} = await api('genre/movie/list');
     const categories = data.genres;
 
+    categoriesPreviewList.innerHTML = "";
+
     categories.forEach(category => {
-        const previewCategoriesContainer = document.querySelector('#categoriesPreview .categoriesPreview-list');
         const categoryContainer = document.createElement('div');
         const categoryTitle = document.createElement('h4');
 
@@ -47,6 +49,6 @@ async function getCategoriesPreview() {
 
         categoryTitle.appendChild(categoryTitleText);
         categoryContainer.appendChild(categoryTitle);
-        previewCategoriesContainer.appendChild(categoryContainer);
+        categoriesPreviewList.appendChild(categoryContainer);
     });
 }
