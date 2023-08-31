@@ -44,7 +44,6 @@
     width: 150px;
 }
 .relatedMovies-scrollContainer {
-    position: absolute;
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
