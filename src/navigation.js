@@ -4,6 +4,7 @@ searchBtn.addEventListener('click', () => {
 trendingBtn.addEventListener('click', () => {
     location.hash = '#trends';
 });
+navbarLogo.addEventListener('click', homePage);
 
 window.addEventListener('DOMContentLoaded', navigator, false);
 window.addEventListener('hashchange', navigator, false);
@@ -55,4 +56,10 @@ function categoriesPage() {
     categoriesPreviewSection.classList.add('inactive');
     movieDetailSection.classList.add('inactive');
     genericSection.classList.remove('inactive');
+
+    const [_, categoryData] = location.hash.split('='); // esto separa el query parameter en ['#category', 'id-name']
+    const [categoryId, categoryName] = categoryData.split('-'); // esto separa el id y el name
+    genreTitle.innerHTML = decodeURIComponent(categoryName); // con el decode hacemos que reconozca los caracteres especiales y tildes
+
+    getMoviesByCategory(categoryId); // función que invoca peliculas según la categoria
 }

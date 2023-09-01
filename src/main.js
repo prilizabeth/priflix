@@ -45,10 +45,38 @@ async function getCategoriesPreview() {
         categoryContainer.className = 'col-2 category-container';
         categoryTitle.className = 'category-title';
         categoryTitle.setAttribute('id', 'id' + category.id);
+        categoryTitle.addEventListener('click', () => {
+            location.hash = `#category=${category.id}-${category.name}`; // agregamos un evento para cuando demos click a una categoria, el location.hash se ubique en la categoria correspondiente
+        });
         const categoryTitleText = document.createTextNode(category.name);
 
         categoryTitle.appendChild(categoryTitleText);
         categoryContainer.appendChild(categoryTitle);
         categoriesPreviewList.appendChild(categoryContainer);
+    });
+}
+
+/* Funcion para obtener peliculas segun la categoria */
+async function getMoviesByCategory(id) {
+    const {data} = await api('discover/movie', {
+        params: {
+            with_genres: id,
+        }
+    });
+    const movies = data.results;
+
+    genreMoviesList.innerHTML = "";
+
+    movies.forEach(movie => {
+        const movieContainer = document.createElement('div');
+        const movieImg = document.createElement('img');
+
+        movieContainer.className = 'col my-2 movie-container'
+        movieImg.className = 'rounded movie-img';
+        movieImg.setAttribute('alt', movie.title);
+        movieImg.setAttribute('src', 'https://image.tmdb.org/t/p/w300' + movie.poster_path);
+
+        movieContainer.appendChild(movieImg);
+        genreMoviesList.appendChild(movieContainer);
     });
 }

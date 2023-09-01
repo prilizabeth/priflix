@@ -24,6 +24,10 @@
     cursor: pointer;
 }
 
+.category-title:hover {
+    cursor: pointer;
+}
+
 .trendingPreview-header {
     justify-content: space-between;
     color: var(--dark-color);
