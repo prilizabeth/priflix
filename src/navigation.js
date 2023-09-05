@@ -1,10 +1,12 @@
 searchBtn.addEventListener('click', () => {
-    location.hash = '#search=';
+    location.hash = '#search=' + searchInput.value;
 });
 trendingBtn.addEventListener('click', () => {
     location.hash = '#trends';
 });
-navbarLogo.addEventListener('click', homePage);
+navbarLogo.addEventListener('click', () => {
+    location.hash = '#home';
+});
 
 window.addEventListener('DOMContentLoaded', navigator, false);
 window.addEventListener('hashchange', navigator, false);
@@ -28,16 +30,39 @@ function navigator() {
 function homePage() {
     console.log('home');
 
+    trendingPreviewSection.classList.remove('inactive');
+    categoriesPreviewSection.classList.remove('inactive');
+    movieDetailSection.classList.add('inactive');
+    genericSection.classList.add('inactive');
+
     getTrendingMoviesPreview();
     getCategoriesPreview();
 }
 
 function trendsPage() {
     console.log('trends');
+
+    trendingPreviewSection.classList.add('inactive');
+    categoriesPreviewSection.classList.add('inactive');
+    movieDetailSection.classList.add('inactive');
+    genericSection.classList.remove('inactive');
+    genreTitle.innerHTML = 'Tendencias';
+
+    getTrendingMovies();
 }
 
 function searchPage() {
     console.log('search');
+
+    trendingPreviewSection.classList.add('inactive');
+    categoriesPreviewSection.classList.add('inactive');
+    movieDetailSection.classList.add('inactive');
+    genericSection.classList.remove('inactive');
+
+    const [_, queryString] = location.hash.split('='); // esto separa el query parameter en ['#search', 'busqueda']
+    const query = decodeURIComponent(queryString);
+    genreTitle.innerHTML = `Resultados de ${query}`;
+    getMoviesBySearch(query); // Funcion que invoca peliculas segun busqueda
 }
 
 function movieDetailPage() {
