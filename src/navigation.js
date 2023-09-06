@@ -25,6 +25,9 @@ function navigator() {
     } else {
         homePage();
     }
+
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
 }
 
 function homePage() {
@@ -32,6 +35,7 @@ function homePage() {
 
     trendingPreviewSection.classList.remove('inactive');
     categoriesPreviewSection.classList.remove('inactive');
+    heroSection.classList.remove('inactive');
     movieDetailSection.classList.add('inactive');
     genericSection.classList.add('inactive');
 
@@ -45,6 +49,7 @@ function trendsPage() {
     trendingPreviewSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
     movieDetailSection.classList.add('inactive');
+    heroSection.classList.add('inactive');
     genericSection.classList.remove('inactive');
     genreTitle.innerHTML = 'Tendencias';
 
@@ -57,6 +62,7 @@ function searchPage() {
     trendingPreviewSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
     movieDetailSection.classList.add('inactive');
+    heroSection.classList.add('inactive');
     genericSection.classList.remove('inactive');
 
     const [_, queryString] = location.hash.split('='); // esto separa el query parameter en ['#search', 'busqueda']
@@ -71,7 +77,11 @@ function movieDetailPage() {
     trendingPreviewSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
     genericSection.classList.add('inactive');
+    heroSection.classList.add('inactive');
     movieDetailSection.classList.remove('inactive');
+
+    const [_, movieId] = location.hash.split('=');
+    getMovieById(movieId);
 }
 
 function categoriesPage() {
@@ -80,6 +90,7 @@ function categoriesPage() {
     trendingPreviewSection.classList.add('inactive');
     categoriesPreviewSection.classList.add('inactive');
     movieDetailSection.classList.add('inactive');
+    heroSection.classList.add('inactive');
     genericSection.classList.remove('inactive');
 
     const [_, categoryData] = location.hash.split('='); // esto separa el query parameter en ['#category', 'id-name']

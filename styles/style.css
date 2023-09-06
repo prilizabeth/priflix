@@ -24,8 +24,13 @@
     cursor: pointer;
 }
 
+
 .category-title:hover {
     cursor: pointer;
+    background-color: var(--dark-color);
+    color: var(--clear-color);
+    border-radius: 5px;
+    padding: 5px;
 }
 
 .trendingPreview-header {
@@ -46,6 +51,9 @@
 .movie-container .movie-img {
     height: 225px;
     width: 150px;
+}
+.movie-container:hover {
+    cursor: pointer;
 }
 .relatedMovies-scrollContainer {
     overflow-x: scroll;
