@@ -9,7 +9,7 @@ navbarLogo.addEventListener('click', () => {
 });
 
 window.addEventListener('DOMContentLoaded', navigator, false);
-window.addEventListener('hashchange', navigator, false);
+window.addEventListener('hashchange', navigator, false); // para escuchar el evento de cambio de hash en la url
 
 function navigator() {
     console.log({ location });
