@@ -52,6 +52,9 @@
     height: 225px;
     width: 150px;
 }
+.movie-img {
+    min-height: 200px;
+}
 .movie-container:hover {
     cursor: pointer;
 }

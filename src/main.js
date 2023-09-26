@@ -23,6 +23,9 @@ function createMovieContainer(movies, container) {
         movieImg.setAttribute('alt', movie.title);
         movieImg.setAttribute('src', 'https://image.tmdb.org/t/p/w300' + movie.poster_path);
 
+        movieImg.addEventListener('error', () => {
+            movieImg.setAttribute('src', 'https://i.postimg.cc/t44G8Mmf/No-Image.png');
+        });
         movieContainer.addEventListener('click', () => {
             location.hash = '#movie=' + movie.id;
         });
