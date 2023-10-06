@@ -10,18 +10,28 @@ const api = axios.create({
     },
 });
 
+const lazyLoader = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if(entry.isIntersecting) {
+            const imgUrl = entry.target.getAttribute('data-img');
+            entry.target.setAttribute('src', imgUrl);
+            lazyLoader.unobserve(entry.target);
+        }
+    });
+});
+
 // Funciones para crear card contenedora de peliculas y contenedor de categoria, se invocan en de otras funciones
-function createMovieContainer(movies, container) {
+function createMovieContainer(movies, container, lazyLoad = false) {
     container.innerHTML = "";
 
     movies.forEach(movie => {
         const movieContainer = document.createElement('div');
         const movieImg = document.createElement('img');
 
-        movieContainer.className = 'col my-2 movie-container'
+        movieContainer.className = 'col my-2 movie-container';
         movieImg.className = 'rounded movie-img';
         movieImg.setAttribute('alt', movie.title);
-        movieImg.setAttribute('src', 'https://image.tmdb.org/t/p/w300' + movie.poster_path);
+        movieImg.setAttribute( lazyLoad ? 'data-img' : 'src', 'https://image.tmdb.org/t/p/w300' + movie.poster_path);
 
         movieImg.addEventListener('error', () => {
             movieImg.setAttribute('src', 'https://i.postimg.cc/t44G8Mmf/No-Image.png');
@@ -29,6 +39,11 @@ function createMovieContainer(movies, container) {
         movieContainer.addEventListener('click', () => {
             location.hash = '#movie=' + movie.id;
         });
+        
+
+        if(lazyLoad) {
+            lazyLoader.observe(movieImg);
+        }
 
         movieContainer.appendChild(movieImg);
         container.appendChild(movieContainer);
@@ -101,7 +116,7 @@ async function getTrendingMovies() {
     const {data} = await api('trending/movie/day');
     const movies = data.results;
 
-    createMovieContainer(movies, genreMoviesList);
+    createMovieContainer(movies, genreMoviesList, true);
 }
 
 /* Funcion para obtener los detalles de una pelicula */
@@ -124,5 +139,5 @@ async function getRelatedMovies(id) {
     const {data} = await api(`movie/${id}/recommendations`);
     const relatedMovies = data.results;
 
-    createMovieContainer(relatedMovies, relatedMoviesContainer);
+    createMovieContainer(relatedMovies, relatedMoviesContainer, true);
 }

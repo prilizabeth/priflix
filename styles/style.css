@@ -50,11 +50,15 @@
 }
 .movie-container .movie-img {
     height: 225px;
+    min-height: 225px;
+    max-height: 225px;
     width: 150px;
+    min-width: 150px;
+    max-width: 150px;
 }
-.movie-img {
+/*.movie-img {
     min-height: 200px;
-}
+}*/
 .movie-container:hover {
     cursor: pointer;
 }
