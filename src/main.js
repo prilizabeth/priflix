@@ -21,8 +21,17 @@ const lazyLoader = new IntersectionObserver((entries) => {
 });
 
 // Funciones para crear card contenedora de peliculas y contenedor de categoria, se invocan en de otras funciones
-function createMovieContainer(movies, container, lazyLoad = false) {
-    container.innerHTML = "";
+function createMovieContainer(
+    movies, 
+    container, 
+    {
+        lazyLoad = false, //parametros nombrados para lazyloading y limpiar el html
+        clean = true,
+    } = {}, //si no son necesarios, no se pasan
+    ) {
+    if(clean) {
+        container.innerHTML = ""; // si es true, que limpie el html
+    }
 
     movies.forEach(movie => {
         const movieContainer = document.createElement('div');
@@ -42,7 +51,7 @@ function createMovieContainer(movies, container, lazyLoad = false) {
         
 
         if(lazyLoad) {
-            lazyLoader.observe(movieImg);
+            lazyLoader.observe(movieImg); //para el evento de lazy loading
         }
 
         movieContainer.appendChild(movieImg);
@@ -71,7 +80,7 @@ function createCategoryContainer(categories, container) {
     });
 }
 
-/* Funcion para obtener peliculas en tendencia */
+/* Funcion para obtener preview de peliculas en tendencia */
 async function getTrendingMoviesPreview() {
     const {data} = await api('trending/movie/day'); // no necesitamos hacer json porque axios ya lo hace por defecto
     const movies = data.results;
@@ -79,7 +88,7 @@ async function getTrendingMoviesPreview() {
     createMovieContainer(movies, trendingMoviesPreviewList);
 }
 
-/* Funcion para obtener lista de categorias */
+/* Funcion para obtener lista preview de categorias */
 async function getCategoriesPreview() {
     const {data} = await api('genre/movie/list');
     const categories = data.genres;
@@ -95,8 +104,32 @@ async function getMoviesByCategory(id) {
         }
     });
     const movies = data.results;
+    maxPage = data.total_pages;
 
-    createMovieContainer(movies, genreMoviesList);
+    createMovieContainer(movies, genreMoviesList, { lazyLoad: true });
+}
+
+/* Funcion para infinite scrolling en sección categoria de pelicula */
+function getPaginatedMoviesByCategory(id) {
+    return async function () {
+        const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+
+        const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 15); 
+        const pageIsNotMax = page < maxPage; 
+
+        if (scrollIsBottom && pageIsNotMax) {
+            page++;
+            const {data} = await api('discover/movie', {
+                params: {
+                    with_genres: id,
+                    page,
+                },
+        });
+        const movies = data.results;
+
+        createMovieContainer(movies, genreMoviesList, {lazyLoad: true, clean: false});
+    }
+    }
 }
 
 /* Funcion para obtener peliculas segun la busqueda */
@@ -107,16 +140,62 @@ async function getMoviesBySearch(query) {
         }
     });
     const movies = data.results;
+    maxPage = data.total_pages;
+    console.log(maxPage);
 
     createMovieContainer(movies, genreMoviesList);
+}
+
+/* Funcion para infinite scrolling en sección busqueda */
+function getPaginatedMoviesBySearch(query) {
+    return async function () {
+        const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+
+        const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 15); 
+        const pageIsNotMax = page < maxPage; 
+
+        if (scrollIsBottom && pageIsNotMax) {
+            page++;
+            const {data} = await api('search/movie', {
+                params: {
+                    query,
+                    page,
+                },
+        });
+        const movies = data.results;
+
+        createMovieContainer(movies, genreMoviesList, {lazyLoad: true, clean: false}); //que no limpie el html sino no carga más
+    }
+    }
 }
 
 /* Funcion para obtener la lista completa de las peliculas en tendencia */
 async function getTrendingMovies() {
     const {data} = await api('trending/movie/day');
     const movies = data.results;
+    maxPage = data.total_pages; // le damos un máximo de página para que no de error al llegar al final
 
-    createMovieContainer(movies, genreMoviesList, true);
+    createMovieContainer(movies, genreMoviesList, {lazyLoad: true, clean: true});
+}
+
+/* Funcion para infinite scrolling en sección películas en tendencia */
+async function getPaginatedTrendingMovies() {
+    const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+
+    const scrollIsBottom = (scrollTop + clientHeight) >= (scrollHeight - 15); //valida si llegamos al final de la pag
+    const pageIsNotMax = page < maxPage; // valida que no sea la última página
+
+    if (scrollIsBottom && pageIsNotMax) {
+        page++;
+        const {data} = await api('trending/movie/day', {
+            params: {
+                page,
+            },
+        });
+        const movies = data.results;
+
+        createMovieContainer(movies, genreMoviesList, {lazyLoad: true, clean: false}); //que no limpie el html sino no carga más
+    }
 }
 
 /* Funcion para obtener los detalles de una pelicula */
@@ -139,5 +218,5 @@ async function getRelatedMovies(id) {
     const {data} = await api(`movie/${id}/recommendations`);
     const relatedMovies = data.results;
 
-    createMovieContainer(relatedMovies, relatedMoviesContainer, true);
+    createMovieContainer(relatedMovies, relatedMoviesContainer);
 }

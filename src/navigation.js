@@ -1,3 +1,7 @@
+let maxPage;
+let page = 1;
+let infiniteScroll;
+
 searchBtn.addEventListener('click', () => {
     location.hash = '#search=' + searchInput.value;
 });
@@ -10,9 +14,14 @@ navbarLogo.addEventListener('click', () => {
 
 window.addEventListener('DOMContentLoaded', navigator, false);
 window.addEventListener('hashchange', navigator, false); // para escuchar el evento de cambio de hash en la url
+window.addEventListener('scroll', infiniteScroll);
 
 function navigator() {
     console.log({ location });
+    if (infiniteScroll) {
+        window.removeEventListener('scroll', infiniteScroll, {passive: false});
+        infiniteScroll = undefined;
+    }
 
     if (location.hash.startsWith('#trends')) {
         trendsPage();
@@ -28,6 +37,10 @@ function navigator() {
 
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
+
+    if (infiniteScroll) {
+        window.addEventListener('scroll', infiniteScroll, {passive: false});
+    }
 }
 
 function homePage() {
@@ -54,6 +67,8 @@ function trendsPage() {
     genreTitle.innerHTML = 'Tendencias';
 
     getTrendingMovies();
+
+    infiniteScroll = getPaginatedTrendingMovies;
 }
 
 function searchPage() {
@@ -69,6 +84,8 @@ function searchPage() {
     const query = decodeURIComponent(queryString);
     genreTitle.innerHTML = `Resultados de ${query}`;
     getMoviesBySearch(query); // Funcion que invoca peliculas segun busqueda
+
+    infiniteScroll = getPaginatedMoviesBySearch(query);
 }
 
 function movieDetailPage() {
@@ -98,4 +115,6 @@ function categoriesPage() {
     genreTitle.innerHTML = decodeURIComponent(categoryName); // con el decode hacemos que reconozca los caracteres especiales y tildes
 
     getMoviesByCategory(categoryId); // función que invoca peliculas según la categoria
+
+    infiniteScroll = getPaginatedMoviesByCategory(categoryId);
 }
