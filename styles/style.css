@@ -41,12 +41,15 @@
     color: var(--dark-color);
 }
 .trendingPreview-movieList {
-    overflow-x: scroll;
-    overflow-y: hidden;
+    overflow-x: hidden;
+    /*overflow-y: hidden;*/
     white-space: nowrap;
     height: 241px;
     padding-left: 24px;
     padding-bottom: 16px;
+}
+.movie-container {
+    position: relative;
 }
 .movie-container .movie-img {
     height: 225px;
@@ -62,6 +65,26 @@
 .movie-container:hover {
     cursor: pointer;
 }
+.movie-btn {
+    position: absolute;
+    top: 5px;
+    right: 25px;
+    height: 30px;
+    width: 30px;
+    border-radius: 30px;
+    padding: 0;
+    margin: 0;
+}
+.movie-btn::before {
+    content: '🖤';
+}
+.movie-btn--liked {
+    background-color: var(--third-color);
+}
+.movie-btn--liked::before {
+    content: '❤';
+}
+
 .relatedMovies-scrollContainer {
     overflow-x: scroll;
     overflow-y: hidden;

@@ -10,6 +10,33 @@ const api = axios.create({
     },
 });
 
+/* Funcion que devuelve el objeto de peliculas guardadas en localStorage */
+function likedMoviesList() {
+    const item = JSON.parse(localStorage.getItem('liked_movies')); //obtenemos lo guardado en localStorage
+    let movies;
+
+    if(item) {
+        movies = item; // si hay algo guardado, nos devuelve ese algo
+    } else {
+        movies = {}; // si no hay nada, devuelve un objeto vacio
+    }
+
+    return movies;
+}
+
+/* Funcion para guardar o remover peliculas de favoritos */
+function likeMovie(movie) {
+    const likedMovies = likedMoviesList(); // guardamos en una constante el objeto con las peliculas guardadas en localStorage
+
+    if(likedMovies[movie.id]) {
+        likedMovies[movie.id] = undefined; // si existe el id, lo removemos
+    } else {
+        likedMovies[movie.id] = movie; // si no existe, lo agregamos
+    }
+
+    localStorage.setItem('liked_movies', JSON.stringify(likedMovies)); // guardamos lo modificado a localStorage en string
+}
+
 const lazyLoader = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
         if(entry.isIntersecting) {
@@ -36,11 +63,13 @@ function createMovieContainer(
     movies.forEach(movie => {
         const movieContainer = document.createElement('div');
         const movieImg = document.createElement('img');
+        const likeBtn = document.createElement('button');//boton de favoritos
 
-        movieContainer.className = 'col my-2 movie-container';
+        movieContainer.className = 'col my-2 px-3 movie-container';
         movieImg.className = 'rounded movie-img';
         movieImg.setAttribute('alt', movie.title);
         movieImg.setAttribute( lazyLoad ? 'data-img' : 'src', 'https://image.tmdb.org/t/p/w300' + movie.poster_path);
+        likeBtn.classList.add('movie-btn');
 
         movieImg.addEventListener('error', () => {
             movieImg.setAttribute('src', 'https://i.postimg.cc/t44G8Mmf/No-Image.png');
@@ -48,13 +77,19 @@ function createMovieContainer(
         movieContainer.addEventListener('click', () => {
             location.hash = '#movie=' + movie.id;
         });
-        
+        likedMoviesList()[movie.id] && likeBtn.classList.add('movie-btn--liked');
+        likeBtn.addEventListener('click', (event) => {
+            event.stopPropagation(); // para evitar que el otro evento de click en el contenedor se sobreponga
+            likeBtn.classList.toggle('movie-btn--liked');
+            likeMovie(movie);
+        });
 
         if(lazyLoad) {
             lazyLoader.observe(movieImg); //para el evento de lazy loading
         }
 
         movieContainer.appendChild(movieImg);
+        movieContainer.appendChild(likeBtn);
         container.appendChild(movieContainer);
     });
 }
@@ -219,4 +254,12 @@ async function getRelatedMovies(id) {
     const relatedMovies = data.results;
 
     createMovieContainer(relatedMovies, relatedMoviesContainer);
+}
+
+/* Función para obtener la información de localStorage y guardarla en la sección peliculas favoritas */
+function getLikedMovies() {
+    const likedMoviesObj = likedMoviesList();
+    const likedMoviesArr = Object.values(likedMoviesObj);
+
+    createMovieContainer(likedMoviesArr, favouriteMoviesList, { lazyLoad: true, clean: true });
 }
