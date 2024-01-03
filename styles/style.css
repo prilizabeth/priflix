@@ -24,15 +24,6 @@
     cursor: pointer;
 }
 
-
-.category-title:hover {
-    cursor: pointer;
-    background-color: var(--dark-color);
-    color: var(--clear-color);
-    border-radius: 5px;
-    padding: 5px;
-}
-
 .trendingPreview-header {
     justify-content: space-between;
     color: var(--dark-color);
@@ -40,7 +31,7 @@
 .trendingPreview-btn {
     color: var(--dark-color);
 }
-.trendingPreview-movieList {
+.trendingPreview-movieList, .liked-movieList {
     overflow-x: hidden;
     /*overflow-y: hidden;*/
     white-space: nowrap;
@@ -83,6 +74,20 @@
 }
 .movie-btn--liked::before {
     content: '❤';
+}
+
+.category-container {
+    background-color: var(--dark-color);
+    color: var(--clear-color);
+    border-radius: 5px;
+    cursor: pointer;
+    /* padding: 0;*/
+}
+.category-title:hover {
+    color: var(--third-color);
+    /* border-radius: 5px;
+    color: var(--clear-color);
+     padding: 5px;*/
 }
 
 .relatedMovies-scrollContainer {

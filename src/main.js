@@ -65,7 +65,7 @@ function createMovieContainer(
         const movieImg = document.createElement('img');
         const likeBtn = document.createElement('button');//boton de favoritos
 
-        movieContainer.className = 'col my-2 px-3 movie-container';
+        movieContainer.className = 'col-2 my-2 px-3 movie-container';
         movieImg.className = 'rounded movie-img';
         movieImg.setAttribute('alt', movie.title);
         movieImg.setAttribute( lazyLoad ? 'data-img' : 'src', 'https://image.tmdb.org/t/p/w300' + movie.poster_path);
@@ -101,7 +101,7 @@ function createCategoryContainer(categories, container) {
         const categoryContainer = document.createElement('div');
         const categoryTitle = document.createElement('h4');
 
-        categoryContainer.className = 'col-2 category-container';
+        categoryContainer.className = 'col-2 m-1 category-container';
         categoryTitle.className = 'category-title';
         categoryTitle.setAttribute('id', 'id' + category.id);
         categoryTitle.addEventListener('click', () => {
