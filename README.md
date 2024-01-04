@@ -16,6 +16,4 @@
 *sneak peek*
 [![priflix1.png](https://i.postimg.cc/zXmCnfbJ/priflix1.png)](https://postimg.cc/5j3QJbSG)
 
-[![priflix2.png](https://i.postimg.cc/qqKZjZxg/priflix2.png)](https://postimg.cc/y3VPNj5z)
-
-[![priflix3.png](https://i.postimg.cc/FHwkQWyh/priflix3.png)](https://postimg.cc/k2FgQyYH)
+[![priflix2.png](https://i.postimg.cc/VvBs24YL/priflix2.png)](https://postimg.cc/RJhzH76j)
